@@ -131,8 +131,6 @@ html;
 {$nb_assertions} assertion{$plural}<br>{$this($runner->getDescription())}</td></tr>
 html;
             } else {
-                $nb_assertions = $runner->getNbAssertions();
-                $plural = $nb_assertions >= 2 ? 's' : '';
                 if ($nb_assertions) {
                     $nb_passed = $runner->getNbAssertionsPassed();
                     $nb_failed = $nb_assertions - $nb_passed;
