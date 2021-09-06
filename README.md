@@ -168,6 +168,8 @@ start of a new project.
 It is also possible to define an assertion on the fly using 
 `$pilot->addHelper($name, $closure);`.
 
+- NESTED RUNS
+
 For really complex tests, you can also define nested runs.
 ```php
 $pilot->run(
