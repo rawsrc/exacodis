@@ -116,7 +116,7 @@ You can write your test code as raw code, especially for complex test code.
 // manual test
 $stats = $pilot->getStats();
 unset($stats['milliseconds'], $stats['hms']);
-// we encapsulate the result in a closure to use for testing purpose
+// we encapsulate the result in a closure to use it for testing purpose
 $pilot->run(
     id: '007',
     description: 'check the count',
