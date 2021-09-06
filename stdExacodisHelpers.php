@@ -190,7 +190,7 @@ $helpers['assertNotIn'] = $not_in;
 //region not in strict
 $not_in_strict = function(array $values) {
     /** @var Pilot $this */
-    if (in_array($this->current_runner->getResult(), $values, true)) {
+    if ( ! in_array($this->current_runner->getResult(), $values, true)) {
         $this->addSuccess('notInArrayStrict');
     } else {
         $this->addFailure(expected: 'Not to be strictly one of: '.print_r($values, true));
