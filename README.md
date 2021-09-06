@@ -192,6 +192,8 @@ $pilot->run(
 $pilot->setCurrentRunnerTo('abc');
 $pilot->assertIsArray(); // now it applies to the run 'abc'
 ```
+This is the only tricky point of `Exacodis`. This keeps the code more readable as there's 
+no need to have tons of parameters for each function call.   
 
 Enjoy!
 
