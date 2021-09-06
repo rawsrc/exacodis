@@ -84,7 +84,7 @@ $pilot->run(
 $pilot->assertException(new Exception());
 $pilot->assertException(Exception::class);
 $pilot->assertException(InvalidArgumentException::class);
-$pilot->assertEqual(0);
+//$pilot->assertEqual(0);
 
 // manual test
 $stats = $pilot->getStats();
@@ -99,15 +99,15 @@ $pilot->run(
 $pilot->assertIsArray();
 $pilot->assertEqual([
     'nb_runs' => 6,
-    'passed_runs' => 5,
-    'failed_runs' => 1,
-    'passed_runs_percent' => round(5/6*100, 2),
-    'failed_runs_percent' => 100-round(5/6*100, 2),
-    'nb_assertions' => 18,
+    'passed_runs' => 6,
+    'failed_runs' => 0,
+    'passed_runs_percent' => 100.0,
+    'failed_runs_percent' => 0.0,
+    'nb_assertions' => 17,
     'passed_assertions' => 17,
-    'failed_assertions' => 1,
-    'passed_assertions_percent' => round(17/18*100, 2),
-    'failed_assertions_percent' => 100-round(17/18*100, 2)
+    'failed_assertions' => 0,
+    'passed_assertions_percent' => 100.0,
+    'failed_assertions_percent' => 0.0
 ]);
 
 $pilot->createReport();
