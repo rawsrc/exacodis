@@ -146,6 +146,9 @@ simply as:
 ```php
 $pilot->createReport();
 ```
+You will find in the repository two reports: one totally passed and another one failed.
+You'll exactly see how the engine follows the runs and what kind of data are kept. 
+
 - HELPERS
 
 You can create your own helpers to validate any result using à simple `Closure`.
