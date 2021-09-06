@@ -1,6 +1,6 @@
 # **Exacodis**
 
-`2021-09-05` `PHP 8.0+` `v.1.0.0`
+`2021-09-06` `PHP 8.0+` `v.1.0.3`
 
 ## **A PHP TEST ENGINE**
 
@@ -145,6 +145,52 @@ The engine compute internally the data and, you can ask for a HTML report, as
 simply as:
 ```php
 $pilot->createReport();
+```
+- HELPERS
+
+You can create your own helpers to validate any result using à simple `Closure`.
+Have a look at:
+```php
+//region equal
+$equal = function(mixed $to): void {
+    /** @var Pilot $this */
+    if ($this->current_runner->getResult() === $to) {
+        $this->addSuccess('equal');
+    } else {
+        $this->addFailure(expected: 'Equal to: '.print_r($to, true));
+    }
+};
+$helpers['assertEqual'] = $equal;
+//endregion
+```
+This assertion is one of the standard library and is injected right after the 
+start of a new project.
+It is also possible to define an assertion on the fly using 
+`$pilot->addHelper($name, $closure);`.
+
+For really complex tests, you can also define nested runs.
+```php
+$pilot->run(
+    id: 'abc',
+    description: 'complex nested tests',
+    test: function() use ($pilot) {
+        // nested run
+        $pilot->run(
+            id: 'def',
+            description: 'nested run',
+            test: function() {
+                // ...
+                return $foo;
+            }
+        )
+        // careful: this applies to the run 'def'
+        $pilot->assertIsArray();
+    }
+);
+// careful, if you continue the assertions here, by default they will apply to the run 'def'
+// you must change the current runner to work with another one
+$pilot->setCurrentRunnerTo('abc');
+$pilot->assertIsArray(); // now it applies to the run 'abc'
 ```
 
 Enjoy!
