@@ -24,7 +24,7 @@ $pilot->addResource('dummy_array_data', [
 
 $pilot->run(
     id: '001',
-    description: 'Resource extractor (integer) - assertIsInt assertEqual assertNotEqual assertIn assertInStrict',
+    description: 'Resource extractor (integer) - assertIsInt assertEqual assertNotEqual assertIn assertInStrict assertNotIn assertNotInStrict',
     test: function() use ($pilot) {
         return $pilot->getResource('year');
     }
@@ -34,6 +34,9 @@ $pilot->assertEqual(2021);
 $pilot->assertNotEqual(2000);
 $pilot->assertIn(['2021']);
 $pilot->assertInStrict([2021]);
+$pilot->assertNotIn(['2025']);
+$pilot->assertNotInStrict(['2021']);
+//$pilot->assertNotInStrict([2021]); // as the result is an integer 2021, this assertion should fail (and it does)
 
 $pilot->run(
     id: '002',
@@ -84,7 +87,7 @@ $pilot->run(
 $pilot->assertException(new Exception());
 $pilot->assertException(Exception::class);
 $pilot->assertException(InvalidArgumentException::class);
-//$pilot->assertEqual(0);
+//$pilot->assertEqual(0); // as the result is an exception, this assertion should fail (and it does)
 
 // manual test
 $stats = $pilot->getStats();
@@ -103,8 +106,8 @@ $pilot->assertEqual([
     'failed_runs' => 0,
     'passed_runs_percent' => 100.0,
     'failed_runs_percent' => 0.0,
-    'nb_assertions' => 17,
-    'passed_assertions' => 17,
+    'nb_assertions' => 19,
+    'passed_assertions' => 19,
     'failed_assertions' => 0,
     'passed_assertions_percent' => 100.0,
     'failed_assertions_percent' => 0.0
