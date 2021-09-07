@@ -188,12 +188,12 @@ $pilot->run(
                 return $foo;
             }
         )
-        // careful: this applies to the run 'def'
+        // careful: this applies to the (latest) run which is here 'def'
         $pilot->assertIsArray();
     }
 );
-// careful, if you continue the assertions here, by default they will apply to the run 'def'
-// you must change the current runner to work with another one
+// careful, if you continue the assertions here, by default they will apply to the
+// (latest) run which is still 'def'; you must change the current runner to work with the previous one
 $pilot->setCurrentRunnerTo('abc');
 $pilot->assertIsArray(); // now it applies to the run 'abc'
 ```
