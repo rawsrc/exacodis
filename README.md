@@ -40,8 +40,8 @@ include 'Report.php';
 
 use Exacodis\Pilot;
 ```
-For projects with many classes, you must tell PHP how to load your classes by 
-defining an autoloader or use an existing one. 
+For projects with many classes, you must tell PHP how to load your classes either 
+by including them or by defining an autoloader. 
 
 That's enough to start to test your code.
 
@@ -107,7 +107,7 @@ If you want to change the current runner, then you can ask for it:
 ```php
 $pilot->setCurrentRunnerTo('001');
 ```
-Then the assertions will apply to this one.
+Then the assertions will apply to this one (see below: NESTED RUNS)
   
 - COMPLEX TEST CODE
 
