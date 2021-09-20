@@ -95,9 +95,7 @@ unset($stats['milliseconds'], $stats['hms']);
 $pilot->run(
     id: '007',
     description: 'check the count',
-    test: function() use ($stats) {
-        return $stats;
-    }
+    test: fn() => $stats
 );
 $pilot->assertIsArray();
 $pilot->assertEqual([
