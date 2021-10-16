@@ -27,7 +27,7 @@ use const DIRECTORY_SEPARATOR;
  * @method assertIsResource()
  * @method assertIsScalar()
  * @method assertIsString()
- * @method assertInstanceOf(object|string $class)
+ * @method assertIsInstanceOf(object|string $class)
  * @method assertException(object|string $class = 'Exception')
  * @method assertNotEqual(mixed $to)
  * @method assertNotIn(array $values)
