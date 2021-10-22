@@ -115,7 +115,7 @@ class Runner
     }
 
     /**
-     * @return array [[result => bool, expected => string|null]
+     * @return array [[result => bool, expected => string|null, test_name => string|null]
      */
     public function getAssertResults(): array
     {
