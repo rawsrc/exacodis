@@ -1,6 +1,6 @@
 # **Exacodis**
 
-`2021-09-06` `PHP 8.0+` `v.1.0.3`
+`2021-10-22` `PHP 8.0+` `v.1.1.0`
 
 ## **A PHP TEST ENGINE**
 
@@ -21,6 +21,12 @@ The helpers are not exhaustive, you'll be able to create easily yours.
 Please note that your source code for tests must be perfectly clean: you can't
 override a test run or a result nor a resource.<br>
 If you do, then the code will fail with an `Exception` until you fix the code. 
+
+**CHANGELOG**
+1. Code improvements
+2. Better report data
+3. Does not break the compatibility with the previous version
+4. Add a new method `assert()` to the `Pilot` class that simplifies the writing of totally dynamic tests 
 
 **HOW TO USE**
 
@@ -108,7 +114,18 @@ If you want to change the current runner, then you can ask for it:
 $pilot->setCurrentRunnerTo('001');
 ```
 Then the assertions will apply to this one (see below: NESTED RUNS)
-  
+
+- DYNAMIC ASSERTION
+
+Here's the way to write a dynamic test:
+```php
+$pilot->assert(
+    test: fn() => count($pilot->getRunner('select_001')->getResult()) === 2,
+    test_name: 'Count the records',
+    expected: 2,    
+);
+```
+
 - COMPLEX TEST CODE
 
 You can write your test code as raw code, especially for complex test code.

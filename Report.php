@@ -169,7 +169,7 @@ html;
                         $html[] = <<<html
 <tr>
   <td rowspan="2">&nbsp;</td>
-  <td class="failed" rowspan="2">FAILED</td>
+  <td class="failed" rowspan="2">FAILED: {$this((string)$test_name)}</td>
   <td class="failed">Expected</td>
   <td class="failed">{$this($short_string(print_r($expected, true)))}</td>
 </tr>

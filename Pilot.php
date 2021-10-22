@@ -7,7 +7,6 @@ namespace Exacodis;
 use Closure;
 use Exception;
 
-use function array_key_last;
 use function count;
 use function is_file;
 
@@ -233,7 +232,7 @@ class Pilot
      */
     public function createReport(int $max_str_length = 500): void
     {
-         $this->report->create($max_str_length);
+        $this->report->create($max_str_length);
     }
 
     /**
@@ -282,7 +281,7 @@ class Pilot
     {
         if (isset($id)) {
             if (isset($this->runners[$id])) {
-                return $this->runners[$id];
+                return $this->runners[$id]->getId();
             } else {
                 throw new Exception("Unknown runner's id: '{$id}'");
             }
@@ -290,6 +289,30 @@ class Pilot
             return $this->current_runner->getId();
         } else {
             throw new Exception("No test ran");
+        }
+    }
+
+    /**
+     * @param Closure $test
+     * @param string|null $test_name
+     * @param mixed $expected
+     */
+    public function assert(Closure $test, ?string $test_name = null, mixed $expected = null)
+    {
+        $runner_id = $this->getValidRunnerId();
+        if ($test() === true) {
+            $this->runners[$runner_id]->addAssertResult(
+                result: true,
+                test_name: $test_name
+            );
+            $this->stats['passed_assertions'] += 1;
+        } else {
+            $this->runners[$runner_id]->addAssertResult(
+                result: false,
+                test_name: $test_name,
+                expected: $expected
+            );
+            $this->stats['failed_assertions'] += 1;
         }
     }
 
@@ -305,13 +328,14 @@ class Pilot
     }
 
     /**
-     * @param array|string $expected
+     * @param array|int|float|string $expected
+     * @param string|null $test_name
      * @throws Exception
      */
-    public function addFailure(array|string $expected): void
+    public function addFailure(array|int|float|string $expected, string|null $test_name = null): void
     {
         $runner_id = $this->getValidRunnerId();
-        $this->runners[$runner_id]->addAssertResult(result: false, expected: $expected);
+        $this->runners[$runner_id]->addAssertResult(result: false, expected: $expected, test_name: $test_name);
         $this->stats['failed_assertions'] += 1;
     }
 

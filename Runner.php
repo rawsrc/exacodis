@@ -7,6 +7,7 @@ namespace Exacodis;
 use Closure;
 use Exception;
 
+use function count;
 use function hrtime;
 
 /**
@@ -105,10 +106,10 @@ class Runner
 
     /**
      * @param bool $result
-     * @param string|null $expected
+     * @param array|int|float|string|null $expected
      * @param string|null $test_name
      */
-    public function addAssertResult(bool $result, string|null $expected = null, string|null $test_name = null): void
+    public function addAssertResult(bool $result, array|int|float|string|null $expected = null, string|null $test_name = null): void
     {
         $this->assert_results[] = ['result' => $result, 'expected' => $expected, 'test_name' => $test_name];
     }
