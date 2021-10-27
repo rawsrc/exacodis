@@ -224,4 +224,17 @@ $not_in_strict = function(array $values) {
 $helpers['assertNotInStrict'] = $not_in_strict;
 //endregion
 
+//region count
+$count = function(int $nb) {
+    /** @var Pilot $this */
+    $result = $this->current_runner->getResult();
+    if (is_countable($result) && (count($result) === $nb)) {
+        $this->addSuccess('count');
+    } else {
+        $this->addFailure(expected: "Countable and number of elements: {$nb}");
+    }
+};
+$helpers['assertCount'] = $count;
+//endregion
+
 return $helpers;

@@ -15,22 +15,23 @@ use function round;
 use const DIRECTORY_SEPARATOR;
 
 /**
+ * @method assertCount(int $nb)
  * @method assertEqual(mixed $to)
+ * @method assertException(object|string $class = 'Exception')
  * @method assertIn(array $values)
  * @method assertInStrict(array $values)
  * @method assertIsArray()
  * @method assertIsBool()
  * @method assertIsFloat()
  * @method assertIsInt()
+ * @method assertIsInstanceOf(object|string $class)
+ * @method assertIsNotInstanceOf(object|string $class)
  * @method assertIsObject()
  * @method assertIsResource()
  * @method assertIsScalar()
  * @method assertIsString()
- * @method assertIsInstanceOf(object|string $class)
- * @method assertException(object|string $class = 'Exception')
- * @method assertIsNotInstanceOf(object|string $class)
- * @method assertNotException(object|string $class = 'Exception')
  * @method assertNotEqual(mixed $to)
+ * @method assertNotException(object|string $class = 'Exception')
  * @method assertNotIn(array $values)
  * @method assertNotInStrict(array $values)
  */
