@@ -135,7 +135,7 @@ unset($stats['milliseconds'], $stats['hms']);
 $pilot->run(
     id: '007',
     description: 'check the count',
-    test: fn() => $stats
+    test: fn() => $stats;
 );
 // then we lead our assertions
 $pilot->assertIsArray();
