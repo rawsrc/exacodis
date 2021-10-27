@@ -28,6 +28,8 @@ use const DIRECTORY_SEPARATOR;
  * @method assertIsString()
  * @method assertIsInstanceOf(object|string $class)
  * @method assertException(object|string $class = 'Exception')
+ * @method assertIsNotInstanceOf(object|string $class)
+ * @method assertNotException(object|string $class = 'Exception')
  * @method assertNotEqual(mixed $to)
  * @method assertNotIn(array $values)
  * @method assertNotInStrict(array $values)

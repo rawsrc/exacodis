@@ -1,6 +1,6 @@
 # **Exacodis**
 
-`2021-10-22` `PHP 8.0+` `v.1.1.0`
+`2021-10-27` `PHP 8.0+` `v.1.1.1`
 
 ## **A PHP TEST ENGINE**
 
@@ -23,10 +23,8 @@ override a test run or a result nor a resource.<br>
 If you do, then the code will fail with an `Exception` until you fix the code. 
 
 **CHANGELOG**
-1. Code improvements
-2. Better report data
-3. Does not break the compatibility with the previous version
-4. Add a new method `assert()` to the `Pilot` class that simplifies the writing of totally dynamic tests 
+1. Add 2 new helpers : `assertIsNotInstanceOf()` and `assertNotException()` 
+2. Does not break the compatibility with the previous version
 
 **HOW TO USE**
 

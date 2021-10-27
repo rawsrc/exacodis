@@ -151,6 +151,31 @@ $exception = function(object|string $class = 'Exception') use ($iof): void {
 $helpers['assertException'] = $exception;
 //endregion
 
+//region not is instance of
+$not_iof = function(object|string $class, string $test_name = 'notInstanceOf') {
+    /** @var Pilot $this */
+    if (is_string($class)) {
+        if (is_a($this->current_runner->getResult(), $class)) {
+            $this->addFailure(expected: $test_name.': '.$class);
+        } else {
+            $this->addSuccess($test_name);
+        }
+    } elseif ($this->current_runner->getResult() instanceof $class) {
+        $this->addFailure(expected: $test_name.': '.$class::class);
+    } else {
+        $this->addSuccess($test_name);
+    }
+};
+$helpers['assertIsNotInstanceOf'] = $not_iof;
+//endregion
+
+//region not an exception
+$not_an_exception = function(object|string $class = 'Exception') use ($not_iof) {
+    $not_iof($class, 'notException');
+};
+$helpers['assertNotException'] = $not_an_exception;
+//endregion
+
 //region in
 $in = function(array $values) {
     /** @var Pilot $this */
