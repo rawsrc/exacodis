@@ -91,9 +91,7 @@ returns a value :
 $pilot->run(
     id: '001',
     description: 'Resource extractor (integer) - assertIsInt assertEqual assertNotEqual assertIn assertInStrict',
-    test: function() use ($pilot) {
-        return $pilot->getResource('year');
-    }
+    test: fn() => $pilot->getResource('year')
 );
 ```
 - ASSERTIONS
