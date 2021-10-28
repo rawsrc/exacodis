@@ -247,11 +247,11 @@ class Pilot
     }
 
     /**
-     * @param int|string|null $id If null then apply to the latest run
+     * @param int|string|null $id If null then extract the latest run
      * @return Runner
      * @throws Exception
      */
-    public function getRunner(int|string|null $id): Runner
+    public function getRunner(int|string|null $id = null): Runner
     {
         return $this->runners[$this->getValidRunnerId($id)];
     }
