@@ -19,11 +19,12 @@ The helpers are not exhaustive, you'll be able to create easily yours.
 **IMPORTANT**
 
 Please note that your source code for tests must be perfectly clean: you can't
-override a test run or a result nor a resource.<br>
+override a test run nor a result nor a resource.<br>
 If you do, then the code will fail with an `Exception` until you fix the code. 
 
 **CHANGELOG**
-1. Add 2 new helpers : `assertIsNotInstanceOf()` and `assertNotException()` 
+1. Simplify the extraction of the latest runner by adding a null value to the 
+default parameter: instead of `$pilot->getRunner(null)`, you have now `$pilot->getRunner()`
 2. Does not break the compatibility with the previous version
 
 **HOW TO USE**
@@ -202,7 +203,7 @@ $pilot->run(
         // careful: this applies to the (latest) run which is here 'def'
         $pilot->assertIsArray();
         
-        return []; // a run always MUST return a value
+        return []; // a run MUST always return a value
     }
 );
 // careful, if you continue the assertions here, by default they will apply to the
