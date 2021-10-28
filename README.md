@@ -1,6 +1,6 @@
 # **Exacodis**
 
-`2021-10-27` `PHP 8.0+` `v.1.1.1`
+`2021-10-28` `PHP 8.0+` `v.1.1.3`
 
 ## **A PHP TEST ENGINE**
 
@@ -86,7 +86,7 @@ $pilot->addResource('dummy_array_data', [
 - TEST
 
 As written, a test is a simple snippet of code encapsulated in a `Closure` that
-return a value :
+returns a value :
 ```php
 $pilot->run(
     id: '001',
@@ -181,7 +181,7 @@ $helpers['assertEqual'] = $equal;
 ```
 This assertion is one of the standard library and is injected right after the 
 start of a new project.
-It is also possible to define an assertion on the fly using 
+It is also possible to define a helper on the fly using 
 `$pilot->addHelper($name, $closure);`.
 
 - NESTED RUNS
@@ -203,6 +203,8 @@ $pilot->run(
         )
         // careful: this applies to the (latest) run which is here 'def'
         $pilot->assertIsArray();
+        
+        return []; // a run always MUST return a value
     }
 );
 // careful, if you continue the assertions here, by default they will apply to the
