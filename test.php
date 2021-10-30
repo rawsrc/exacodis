@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-include 'Pilot.php';
+include_once 'Pilot.php';
 
-use Exacodis\Pilot;
+use Exacodis\{
+    Pilot, Report, Runner
+};
 
 $pilot = new Pilot('Exacodis - A PHP minimalist test framework');
 $pilot->injectStandardHelpers();
