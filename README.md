@@ -39,9 +39,7 @@ a test environment. Clearly, it's as simple as :
 
 declare(strict_types=1);
 
-include 'Runner.php';
 include 'Pilot.php';
-include 'Report.php';
 
 use Exacodis\Pilot;
 ```
