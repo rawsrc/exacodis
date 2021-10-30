@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Exacodis;
 
+include_once 'Runner.php';
+include_once 'Report.php';
+
+use Exacodis\Runner;
+use Exacodis\Report;
+
 use Closure;
 use Exception;
 
