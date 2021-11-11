@@ -1,6 +1,6 @@
 # **Exacodis**
 
-`2021-11-11` `PHP 8.0+` `v.1.2.0`
+`2021-11-11` `PHP 8.0+` `v.1.2.1`
 
 ## **A PHP TEST ENGINE**
 
@@ -24,7 +24,8 @@ If you do, then the code will fail with an `Exception` until you fix the code.
 
 **CHANGELOG**
 1. Add the possibility to test any protected/private method from a class
-2. Does not break the compatibility with the previous version
+2. Add the possibility to test any protected/private static method from a class
+3. Does not break the compatibility with the previous version
 
 **HOW TO USE**
 
