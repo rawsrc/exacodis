@@ -247,8 +247,8 @@ class Pilot
      * @param string $description
      * @param string|null $method
      * @param array $params
+     * @param bool $is_static
      * @return int|string
-     * @throws Exception("Runner's id: {$id} is already defined and locked")
      * @throws ReflectionException
      */
     public function runClassMethod(
@@ -281,6 +281,10 @@ class Pilot
 
         $reflection_method = new ReflectionMethod($class, $method);
         $reflection_method->setAccessible(true);
+
+        if ($reflection_method->isStatic()) {
+            $class = null;
+        }
 
         $runner = new Runner(fn() => $reflection_method->invoke($class, ...$params), $description);
         $runner->setId($id);

@@ -129,6 +129,11 @@ class Foo
     {
         return 2*$p+4*$q;
     }
+
+    private static function tuv(): string
+    {
+        return 'tuv';
+    }
 }
 
 $foo = new Foo();
@@ -224,6 +229,14 @@ $pilot->runClassMethod(
 );
 $pilot->assertIsInt();
 $pilot->assertEqual(250);
+
+$pilot->runClassMethod(
+    id: '018',
+    description: 'private static method unit test',
+    class: 'Foo::tuv',
+);
+$pilot->assertIsString();
+$pilot->assertEqual('tuv');
 //endregion
 
 // manual test
@@ -236,13 +249,13 @@ $pilot->run(
 );
 $pilot->assertIsArray();
 $pilot->assertEqual([
-    'nb_runs' => 17,
-    'passed_runs' => 17,
+    'nb_runs' => 18,
+    'passed_runs' => 18,
     'failed_runs' => 0,
     'passed_runs_percent' => 100.0,
     'failed_runs_percent' => 0.0,
-    'nb_assertions' => 42,
-    'passed_assertions' => 42,
+    'nb_assertions' => 44,
+    'passed_assertions' => 44,
     'failed_assertions' => 0,
     'passed_assertions_percent' => 100.0,
     'failed_assertions_percent' => 0.0
