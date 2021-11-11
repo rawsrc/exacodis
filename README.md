@@ -1,6 +1,6 @@
 # **Exacodis**
 
-`2021-10-30` `PHP 8.0+` `v.1.1.4`
+`2021-11-11` `PHP 8.0+` `v.1.2.0`
 
 ## **A PHP TEST ENGINE**
 
@@ -23,8 +23,7 @@ override a test run nor a result nor a resource.<br>
 If you do, then the code will fail with an `Exception` until you fix the code. 
 
 **CHANGELOG**
-1. Simplify the extraction of the latest runner by adding a null value to the 
-default parameter: instead of `$pilot->getRunner(null)`, you have now `$pilot->getRunner()`
+1. Add the possibility to test any protected/private method from a class
 2. Does not break the compatibility with the previous version
 
 **HOW TO USE**
@@ -149,6 +148,74 @@ $pilot->assertEqual([
     'failed_assertions_percent' => 100-round(17/18*100, 2)
 ]);
 ```
+- TESTING PROTECTED/PRIVATE METHODS IN CLASSES
+
+To be able to test any protected or private method, you must use `$pilot->runClassMethod(...)` 
+instead of `$pilot->run(...)`.
+The signature of the method is:
+```php
+public function runClassMethod(
+    int|string|null $id,
+    object|string $class,
+    string $description = '',
+    ?string $method = null,
+    array $params = [],
+)
+```
+Please note:
+- if the class has a complex constructor with required arguments, then you must
+provide a clean instance to the var `$class`
+- in other cases, `$class` can be a string like `Foo` or even with the method 
+included: `Foo::method`
+- The array `$params` must have all the required parameters for the invocation 
+of the method. It's also compatible with named parameters.
+
+All the rest is similar to the method `$pilot->run()`.
+
+Let's have an example from the php test file:
+Here all tests are equivalent:
+```php
+$foo = new Foo();
+$pilot->runClassMethod(
+    id: '008',
+    description: 'private method unit test using directly an instance of Foo',
+    class: $foo,
+    method: 'abc',
+);
+$pilot->assertIsString();
+$pilot->assertEqual('abc');
+
+$pilot->runClassMethod(
+    id: '009',
+    description: 'private method unit test using string notation for the class Foo',
+    class: 'Foo',
+    method: 'abc',
+);
+$pilot->assertIsString();
+$pilot->assertEqual('abc');
+
+$pilot->runClassMethod(
+    id: '010',
+    description: 'private method unit test using short string notation for the class Foo and the method abc',
+    class: 'Foo::abc',
+);
+$pilot->assertIsString();
+$pilot->assertEqual('abc');
+```
+Have a look at the call of a private method with two parameters
+```php
+$pilot->runClassMethod(
+    id: '012',
+    description: 'private method unit test with two parameters',
+    class: 'Foo',
+    method: 'hij',
+    params: ['p' => 25, 'q' => 50]
+);
+$pilot->assertIsInt();
+$pilot->assertEqual(250);
+```
+The named parameters must follow the order of the defined parameters.
+
 - REPORT
 
 The engine compute internally the data and, you can ask for a HTML report, as

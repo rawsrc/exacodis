@@ -13,10 +13,17 @@ use Exacodis\Report;
 use Closure;
 use Exception;
 
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
+
 use function count;
 use function is_file;
 
+use function is_string;
 use function round;
+
+use function str_contains;
 
 use const DIRECTORY_SEPARATOR;
 
@@ -43,6 +50,7 @@ use const DIRECTORY_SEPARATOR;
  */
 class Pilot
 {
+    private static int $counter = -1;
     /**
      * @var string
      */
@@ -216,16 +224,12 @@ class Pilot
      * @param Closure $test
      * @param string|null $description
      * @return int|string Test id
+     * @throws Exception("Runner's id: {$id} is already defined and locked")
      * @throws Exception
      */
     public function run(int|string|null $id, Closure $test, string $description = ''): int|string
     {
-        static $i = -1;
-
-        if (isset($id, $this->runners[$id])) {
-            throw new Exception("Runner's id: {$id} is already defined and locked");
-        }
-        $id ??= ++$i;
+        $id = $this->getRunnerId($id);
         $runner = new Runner($test, $description);
         $runner->setId($id);
         $this->current_runner = $runner;
@@ -233,6 +237,74 @@ class Pilot
         $this->milliseconds += $runner->getMilliseconds();
 
         return $id;
+    }
+
+    /**
+     * For testing purpose of protected or private methods in a class instance
+     *
+     * @param int|string|null $id
+     * @param object|string $class
+     * @param string $description
+     * @param string|null $method
+     * @param array $params
+     * @return int|string
+     * @throws Exception("Runner's id: {$id} is already defined and locked")
+     * @throws ReflectionException
+     */
+    public function runClassMethod(
+        int|string|null $id,
+        object|string $class,
+        string $description = '',
+        ?string $method = null,
+        array $params = [],
+    ) {
+        $id = $this->getRunnerId($id);
+
+        if (is_string($class)) {
+            // intercept the short notation class::method
+            if (str_contains($class, '::')) {
+                [$class, $method] = explode('::', $class);
+            }
+            // the class constructor must not have any required parameters
+            // otherwise the given class must be already built (object and not a string)
+            $reflection_class = new ReflectionClass($class);
+            $constructor = $reflection_class->getConstructor();
+            if (($constructor !== null) && ($constructor->getNumberOfRequiredParameters()) > 0) {
+                throw new Exception('The class cannot be a string, it must be an object');
+            }
+            $class = new $class;
+        }
+
+        if (empty($method)) {
+            throw new Exception('The method must not be empty');
+        }
+
+        $reflection_method = new ReflectionMethod($class, $method);
+        $reflection_method->setAccessible(true);
+
+        $runner = new Runner(fn() => $reflection_method->invoke($class, ...$params), $description);
+        $runner->setId($id);
+        $this->current_runner = $runner;
+        $this->runners[$id] = $runner;
+        $this->milliseconds += $runner->getMilliseconds();
+
+        return $id;
+    }
+
+    /**
+     * @param int|string|null $id
+     * @return int|string
+     * @throws Exception
+     */
+    private function getRunnerId(int|string|null $id): int|string
+    {
+        if ($id === null) {
+            return ++self::$counter;
+        } elseif (isset($this->runners[$id])) {
+            throw new Exception("Runner's id: {$id} is already defined and locked");
+        } else {
+            return $id;
+        }
     }
 
     /**
