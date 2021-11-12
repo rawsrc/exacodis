@@ -50,6 +50,9 @@ use const DIRECTORY_SEPARATOR;
  */
 class Pilot
 {
+    /**
+     * @var int
+     */
     private static int $counter = -1;
     /**
      * @var string
