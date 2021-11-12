@@ -351,7 +351,8 @@ class Pilot
      * Extract an existing test runner and set it as the current one
      *
      * @param int|string $id
-     * @throws Exception
+     * @throws Exception("No test ran")
+     * @throws Exception("Unknown runner's id: '{$id}'")
      */
     public function setCurrentRunnerTo(int|string $id): void
     {
@@ -361,7 +362,8 @@ class Pilot
     /**
      * @param int|string|null $id If null then apply to the last run
      * @return int|string
-     * @throws Exception
+     * @throws Exception("No test ran")
+     * @throws Exception("Unknown runner's id: '{$id}'")
      */
     private function getValidRunnerId(int|string|null $id = null): int|string
     {
