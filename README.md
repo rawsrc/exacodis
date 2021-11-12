@@ -44,13 +44,13 @@ include 'Pilot.php';
 use Exacodis\Pilot;
 ```
 For projects with many classes, you must tell PHP how to load your classes either 
-by including them or by defining an autoloader. 
+by including them or using an autoloader. 
 
 That's enough to start to test your code.
 
 *CONCEPT*
 
-- The `Pilot` class does absolutely everything. You do not have to use the 2 
+- The `Pilot` class does absolutely everything. You do not have to use the two 
 other classes; `Runner` and `Report`.
 - All the test code must be encapsulated in a `Closure` that **MUST** return a value.
 - The helpers you can create are used for the `assert` part of the engine. 
@@ -66,7 +66,7 @@ $pilot->injectStandardHelpers();
 - RESOURCES
 
 To use everything you need to test your code, the engine is able to store and 
-retrieve any resource you want (objects, arrays, scalar values...).
+retrieve any resource you want (objects, arrays, scalar values, even unit tests...).
 Each resource must have a unique name, and you can't override it by error.
 ```php
 //region resources
@@ -151,7 +151,7 @@ $pilot->assertEqual([
 ```
 - TESTING PROTECTED/PRIVATE METHODS IN CLASSES
 
-To be able to test any protected or private (static or not) method, 
+To be able to test any `protected` or `private` (`static` or not) method, 
 you must use `$pilot->runClassMethod(...)` instead of `$pilot->run(...)`.
 The signature of the method is:
 ```php
@@ -181,7 +181,7 @@ $foo = new Foo();
 $pilot->runClassMethod(
     id: '008',
     description: 'private method unit test using directly an instance of Foo',
-    class: $foo,
+    class: $foo, // instance
     method: 'abc',
 );
 $pilot->assertIsString();
@@ -190,7 +190,7 @@ $pilot->assertEqual('abc');
 $pilot->runClassMethod(
     id: '009',
     description: 'private method unit test using string notation for the class Foo',
-    class: 'Foo',
+    class: 'Foo', // class name 
     method: 'abc',
 );
 $pilot->assertIsString();
@@ -199,7 +199,7 @@ $pilot->assertEqual('abc');
 $pilot->runClassMethod(
     id: '010',
     description: 'private method unit test using short string notation for the class Foo and the method abc',
-    class: 'Foo::abc',
+    class: 'Foo::abc', // short notation
 );
 $pilot->assertIsString();
 $pilot->assertEqual('abc');
