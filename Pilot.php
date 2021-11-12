@@ -247,9 +247,10 @@ class Pilot
      * @param string $description
      * @param string|null $method
      * @param array $params
-     * @param bool $is_static
      * @return int|string
      * @throws ReflectionException
+     * @throws Exception('The class cannot be a string, it must be an object')
+     * @throws Exception('The method must not be empty')
      */
     public function runClassMethod(
         int|string|null $id,
@@ -298,7 +299,7 @@ class Pilot
     /**
      * @param int|string|null $id
      * @return int|string
-     * @throws Exception
+     * @throws Exception("Runner's id: {$id} is already defined and locked")
      */
     private function getRunnerId(int|string|null $id): int|string
     {
