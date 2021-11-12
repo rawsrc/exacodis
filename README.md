@@ -4,9 +4,10 @@
 
 ## **A PHP TEST ENGINE**
 
-`Exacodis` is a very minimalist test engine for PHP (very lightweight PHP test framework). 
-This engine is really far from others tools as it is very simple to use. No complex architecture, not even a huge 
-test engine, just the basic (and a little more) to help you to validate your PHP code.
+`Exacodis` is a very minimalist testing engine for PHP (very lightweight PHP testing framework). 
+This engine is really far from others tools as it is very simple to use. No complex architecture, 
+not even a huge testing engine, just the basic (and a little more) to help you to validate 
+your PHP code.
 
 Just 3 classes : 
 1. One to pilot the tests (called `Pilot`),
