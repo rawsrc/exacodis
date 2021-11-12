@@ -20,7 +20,7 @@ The helpers are not exhaustive, you'll be able to create easily yours.
 
 Please note that your source code for tests must be perfectly clean: you can't
 override a test run nor a result nor a resource.<br>
-If you do, then the code will fail with an `Exception` until you fix the code. 
+If you do, then the code will fail with an `Exception` until you fix it. 
 
 **CHANGELOG**
 1. Add the possibility to test any protected/private method from a class
@@ -151,8 +151,8 @@ $pilot->assertEqual([
 ```
 - TESTING PROTECTED/PRIVATE METHODS IN CLASSES
 
-To be able to test any protected or private method, you must use `$pilot->runClassMethod(...)` 
-instead of `$pilot->run(...)`.
+To be able to test any protected or private (static or not) method, 
+you must use `$pilot->runClassMethod(...)` instead of `$pilot->run(...)`.
 The signature of the method is:
 ```php
 public function runClassMethod(
@@ -165,9 +165,10 @@ public function runClassMethod(
 ```
 Please note:
 - if the class has a complex constructor with required arguments, then you must
-provide a clean instance to the var `$class`
+provide a clean object instance for `$class`.
 - in other cases, `$class` can be a string like `Foo` or even with the method 
-included: `Foo::method`
+included: `Foo::method`. This work for classes without constructor or with one
+that have no required parameters.
 - The array `$params` must have all the required parameters for the invocation 
 of the method. It's also compatible with named parameters.
 
@@ -203,17 +204,26 @@ $pilot->runClassMethod(
 $pilot->assertIsString();
 $pilot->assertEqual('abc');
 ```
-Have a look at the call of a private method with two parameters
+Have a look at the call of a private method with two parameters and another call
+to a `private static function()`: 
 ```php
 $pilot->runClassMethod(
     id: '012',
     description: 'private method unit test with two parameters',
     class: 'Foo',
     method: 'hij',
-    params: ['p' => 25, 'q' => 50]
+    params: ['p' => 25, 'q' => 50]  // or [25, 50] 
 );
 $pilot->assertIsInt();
 $pilot->assertEqual(250);
+
+$pilot->runClassMethod(
+    id: '018',
+    description: 'private static method unit test',
+    class: 'Foo::tuv',
+);
+$pilot->assertIsString();
+$pilot->assertEqual('tuv');
 ```
 The named parameters must follow the order of the defined parameters.
 
