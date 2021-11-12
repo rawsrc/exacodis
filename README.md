@@ -4,9 +4,9 @@
 
 ## **A PHP TEST ENGINE**
 
-`Exacodis` is a very minimalist test engine for PHP. This engine is really far from 
-others tools as it is very simple to use. No complex architecture, not even a huge 
-test engine, just the basic (and a litle bit more) to help you to validate your PHP code.
+`Exacodis` is a very minimalist test engine for PHP (very lightweight PHP test framework). 
+This engine is really far from others tools as it is very simple to use. No complex architecture, not even a huge 
+test engine, just the basic (and a little more) to help you to validate your PHP code.
 
 Just 3 classes : 
 1. One to pilot the tests (called `Pilot`),
@@ -166,13 +166,12 @@ public function runClassMethod(
 Please note:
 - if the class has a complex constructor with required arguments, then you must
 provide a clean object instance for `$class`.
-- in other cases, `$class` can be a string like `Foo` or even with the method 
-included: `Foo::method`. This work for classes without constructor or with one
-that have no required parameters.
+- in other cases, `$class` can be a string like `Foo` or even `Foo::method`. 
+This work for classes without constructor or with one that have no required parameters.
 - The array `$params` must have all the required parameters for the invocation 
 of the method. It's also compatible with named parameters.
 
-All the rest is similar to the method `$pilot->run()`.
+Everything else is similar to the method `$pilot->run()`.
 
 Let's have an example from the php test file:
 Here all tests are equivalent:
@@ -225,7 +224,7 @@ $pilot->runClassMethod(
 $pilot->assertIsString();
 $pilot->assertEqual('tuv');
 ```
-The named parameters must follow the order of the defined parameters.
+The named parameters must follow the same order as defined in the function prototype.
 
 - REPORT
 
