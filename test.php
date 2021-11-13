@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 include_once 'Pilot.php';
+include_once 'Runner.php';
+include_once 'Report.php';
 
 use Exacodis\{
     Pilot, Report, Runner
