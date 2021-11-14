@@ -17,6 +17,11 @@ Just 3 classes :
 And many helpers to check the returned values against the expected types and/or values.
 The helpers are not exhaustive, you'll be able to create easily yours.
 
+**INSTALLATION**
+```bash
+composer require rawsrc/exacodis
+```
+
 **IMPORTANT**
 
 Please note that your source code for tests must be perfectly clean: you can't
