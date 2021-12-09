@@ -267,7 +267,7 @@ class Pilot
                 [$class, $method] = explode('::', $class);
             }
             // the class constructor must not have any required parameters
-            // otherwise the given class must be already built (object and not a string)
+            // otherwise the given class must already be instanced (object and not a string)
             $reflection_class = new ReflectionClass($class);
             $constructor = $reflection_class->getConstructor();
             if (($constructor !== null) && ($constructor->getNumberOfRequiredParameters()) > 0) {

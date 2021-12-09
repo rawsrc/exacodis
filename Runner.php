@@ -41,6 +41,7 @@ class Runner
 
     /**
      * @param Closure $closure
+     * @param string $description
      */
     public function __construct(Closure $closure, string $description = '')
     {

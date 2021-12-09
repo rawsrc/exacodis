@@ -1,8 +1,8 @@
 # **Exacodis**
 
-`2021-11-11` `PHP 8.0+` `v.1.2.1`
+`2021-12-09` `PHP 8.0+` `v.1.2.1`
 
-## **A PHP TEST ENGINE**
+## **A PHP TESTING ENGINE**
 
 `Exacodis` is a very minimalist testing engine for PHP (very lightweight PHP testing framework). 
 This engine is really far from others tools as it is very simple to use. No complex architecture, 
@@ -155,7 +155,7 @@ $pilot->assertEqual([
     'failed_assertions_percent' => 100-round(17/18*100, 2)
 ]);
 ```
-- TESTING PROTECTED/PRIVATE METHODS IN CLASSES
+- TESTING PROTECTED/PRIVATE AND/OR STATIC METHODS IN CLASSES
 
 To be able to test any `protected` or `private` (`static` or not) method, 
 you must use `$pilot->runClassMethod(...)` instead of `$pilot->run(...)`.
