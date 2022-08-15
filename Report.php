@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Exacodis;
 
 use DateTime;
+use DateTimeZone;
 use Exception;
 
 use function htmlspecialchars;
@@ -81,9 +82,11 @@ class Report
     {
         $short_string = fn(string $p): string => mb_strlen($p) > $max_str_length ? mb_substr($p, 0, $max_str_length).'...' : $p;
 
-        $date_time = new DateTime();
+        $date_time = new DateTime(timezone: new DateTimeZone('UTC'));
         $stats = $this->pilot->getStats();
-        $global = $stats['failed_runs'] === 0 ? 'PASSED' : 'FAILED';
+        $global = $stats['failed_runs'] === 0
+            ? '<span style="background-color: green; color: white;">&nbsp;PASSED&nbsp;</span>'
+            : '<span style="background-color: red; color: white;">&nbsp;FAILED&nbsp;</span>';
         $html = [];
         $html[] = <<<html
 <html lang="en">
@@ -106,7 +109,7 @@ table, th, td {
 </style>
 </head>
 <body>
-  <h2>EXACODIS REPORT<br>{$date_time->format('Y-m-d H:i:s')}
+  <h2>EXACODIS REPORT<br>{$date_time->format('Y-m-d H:i:s')} GMT/UTC/ZULU
       <br>---
       <br>Project: {$this($this->pilot->getProjectTitle())}
       <br>---
